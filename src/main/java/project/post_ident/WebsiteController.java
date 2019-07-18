@@ -42,7 +42,7 @@ public class WebsiteController {
              @ModelAttribute("neuePersonenDaten") Personendaten personendaten){
 
         personenDatenRepository.save(personendaten);
-        return "checkout";
+        return "datenAendern";
     }
 
     @GetMapping(value = "/zeigeCheckout")
