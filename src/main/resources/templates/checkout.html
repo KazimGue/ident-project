@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>PostIdent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href=../css/checkout.css>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src=../js/checkout.js></script>
+
+
 </head>
 <body>
 
+<div>Vielen Dank für Ihren Besuch. Ihre Daten wurden erfolgreich gespeichert.</div>
+<br>
+
+<br>
+
+
+<div>
+    <span  onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:20px;cursor:pointer;"  class="fa fa-star checked"></span>
+    <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"  style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
+    <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"  style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
+    <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"  style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+    <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+    <br/>
+    <textarea  style="margin-top:5px; width:400px;" class="form-control" rows="3" id="comment" placeholder="Bitte bewerten Sie uns"></textarea>
+
+    <button  onclick="result()" type="button" style="margin-top:10px;margin-left:5px;" class="btn btn-md btn-success">Bewertung abgeben</button>
+
+</div>
+
+
+
 </body>
+
+
 </html>
