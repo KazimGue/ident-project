@@ -52,9 +52,9 @@
             <img src="../personalausweisVorne.png" width="500em"/>
             <br>
             <div style="text-align: center">
-                <button type="submit" class="btn btn-warning">Speichern</button>
-                <button class="btn btn-warning" type="submit">Daten ändern</button>
-                <button class="btn btn-warning" type="submit">Vorgang abbrechen</button>
+                <button type="submit" class="btn btn-warning"> <a th:href="@{/zeigeCheckout}">Speichern</a></button>
+                <button class="btn btn-warning" type="submit"> <a th:href="@{/datenAendern}">Daten ändern</a> </button>
+                <button class="btn btn-warning" type="submit"> <a th:href="@{/}">Vorgang abbrechen</a> </button>
             </div>
         </div>
     </div>
