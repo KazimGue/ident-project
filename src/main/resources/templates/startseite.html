@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PostIdent</title>
+</head>
+<body>
+
+
+<h1>PERSON ANLEGEN</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <label>Wählen Sie eine Bilddatei (*.png, *.jpg usw.) von Ihrem Rechner aus.
+        <br>
+        <br>
+        <input name="datei" type="file" size="50" accept=".png,.jpg">
+    </label>
+    <br>
+    <br>
+    <button> <a th:href="@{/bildhochladen}">Anlegen</a></button>
+</form>
+
+
+
+</body>
+</html>
