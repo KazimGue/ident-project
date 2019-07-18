@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.criteria.CriteriaBuilder;
 
 
 public class Bewertung {
@@ -12,6 +13,21 @@ public class Bewertung {
 
 
     private Long bewertungID;
+
+    private Integer anzSterne;
+    private String bewertungText;
+
+    /*Default Constructr*/
+    public Bewertung() {
+    }
+
+    public String getBewertungText() {
+        return bewertungText;
+    }
+
+    public void setBewertungText(String bewertungText) {
+        this.bewertungText = bewertungText;
+    }
 
     public Long getBewertungID() {
         return bewertungID;
@@ -21,18 +37,12 @@ public class Bewertung {
         this.bewertungID = bewertungID;
     }
 
-    public int getAnzSterne() {
+    public Integer getAnzSterne() {
         return anzSterne;
     }
 
-    public void setAnzSterne(int anzSterne) {
+    public void setAnzSterne(Integer anzSterne) {
         this.anzSterne = anzSterne;
-    }
-
-    private int anzSterne;
-
-    /*Default Constructr*/
-    public Bewertung() {
     }
 
 }

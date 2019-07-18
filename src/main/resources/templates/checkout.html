@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src=../js/checkout.js></script>
+    <!--<script th:inline="javascript"src=../js/checkout.js></script>-->
 
 
 </head>
@@ -35,7 +35,16 @@
 </div>
 
 
+<p th:text=$"{mykey}"></p>
+<script th:inline="javascript">
 
+/*<![CDATA[*/
+
+var myval = /*[[${mykey}]]*/ "TestStaticValue";
+alert (myval);
+
+/*]]>*/
+</script>
 </body>
 
 

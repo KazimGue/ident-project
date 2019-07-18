@@ -1,5 +1,11 @@
 
-var count;
+/*<![CDATA[*/
+
+var count = /*[[${session.anzSterne}]]*/ 'TestSterne ';
+
+/*]]>*/
+
+
 function starmark(item)
 {
     count=item.id[0];
@@ -22,4 +28,6 @@ function result()
 //Rating : Count
 //Review : Comment(id)
     alert("Rating : "+count+"\nReview : "+document.getElementById("comment").value);
+
+
 }
