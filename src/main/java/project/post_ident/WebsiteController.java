@@ -28,21 +28,22 @@ public class WebsiteController {
         return "vergleich";
     }
 
-    @GetMapping(value = "/vergleich")
-    public String personenDatenAbgleichen(Model model) {
-
-        return "vergleich";
-    }
-
-
-
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(
             Model model) {
 
+        model.addAttribute("neuePersonenDaten", new Personendaten());
+
         return "datenAendern";
     }
 
+    @PostMapping(value = "/datenSpeichern")
+    public String personenDatenSpeichern(Model model,
+             @ModelAttribute("neuePersonenDaten") Personendaten personendaten){
+
+        personenDatenRepository.save(personendaten);
+        return "checkout";
+    }
 
     @GetMapping(value = "/zeigeCheckout")
     public String zeigeCheckout() {
