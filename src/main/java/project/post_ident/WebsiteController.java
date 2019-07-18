@@ -19,10 +19,6 @@ public class WebsiteController {
 
 
 
-
-
-
-
 /*
     // Verbindung zur Bild- Datenbank
     @Autowired
