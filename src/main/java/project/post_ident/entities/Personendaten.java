@@ -10,12 +10,6 @@ import javax.persistence.Id;
 @Entity
 public class Personendaten {
 
-    /**
-     * Default constructor
-     */
-    public Personendaten() {
-    }
-
     @Id
     @GeneratedValue
     private Long personID;

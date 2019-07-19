@@ -28,6 +28,16 @@ public class WebsiteController {
         return "vergleich";
     }
 
+    @RequestMapping(value="vergleich")
+    public String vergleicheWerte(Model model){
+
+        List <Personendaten> personenDatenListe = personenDatenRepository.findAll();
+        model.addAttribute("personenDatenListe", personenDatenListe);
+
+        return "vergleich";
+    }
+
+    //Bringt zu der HTML-Seite, auf der ein neues Objekt hinzugefügt wird
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(
             Model model) {
@@ -36,13 +46,13 @@ public class WebsiteController {
 
         return "datenAendern";
     }
-
+    //Speicherung der eingegebenen Daten
     @PostMapping(value = "/datenSpeichern")
-    public String personenDatenSpeichern(Model model,
-             @ModelAttribute("neuePersonenDaten") Personendaten personendaten){
+    public String personenDatenSpeichern(Model model, @ModelAttribute("neuePersonenDaten") Personendaten personendaten){
 
         personenDatenRepository.save(personendaten);
-        return "datenAendern";
+
+        return "checkout";
     }
 
     @GetMapping(value = "/zeigeCheckout")
