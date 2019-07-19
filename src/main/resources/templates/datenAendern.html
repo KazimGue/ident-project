@@ -21,31 +21,31 @@
                             method="post">
                         <div class="form-group">
                             <label>Vorname:</label>
-                            <input th:value="*{vorname}" type="text" class="form-control" id="vorname">
+                            <input th:field="*{vorname}" type="text" class="form-control" id="vorname">
                         </div>
                         <div class="form-group">
                             <label for="nachname">Nachname:</label>
-                            <input  th:value="*{nachname}" type="text" class="form-control" id="nachname">
+                            <input  th:field="*{nachname}" type="text" class="form-control" id="nachname">
                         </div>
                         <div class="form-group">
                             <label for="persoNr">Personalausweis-Nr:</label>
-                            <input  th:value="*{persoNr}" type="text" class="form-control" id="persoNr" placeholder="Personalausweis-Nr">
+                            <input  th:field="*{persoNr}" type="text" class="form-control" id="persoNr" placeholder="Personalausweis-Nr">
                         </div>
                         <div class="form-group">
                             <label for="strasse">Straße:</label>
-                            <input  th:value="*{strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
+                            <input  th:field="*{strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
                         </div>
                         <div class="form-group">
                             <label for="hausnummer">Hausnummer:</label>
-                            <input  th:value="*{hausnummer}" type="text" class="form-control" id="hausnummer" placeholder="Hausnummer">
+                            <input  th:field="*{hausnummer}" type="text" class="form-control" id="hausnummer" placeholder="Hausnummer">
                         </div>
                         <div class="form-group">
                             <label for="plz">PLZ:</label>
-                            <input  th:value="*{plz}" type="text" class="form-control" id="plz" placeholder="Postleitzahl">
+                            <input  th:field="*{plz}" type="text" class="form-control" id="plz" placeholder="Postleitzahl">
                         </div>
                         <div class="form-group">
                             <label for="stadt">Stadt:</label>
-                            <input  th:value="*{stadt}" type="text" class="form-control" id="stadt" placeholder="Stadt">
+                            <input  th:field="*{stadt}" type="text" class="form-control" id="stadt" placeholder="Stadt">
                         </div>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-warning">Speichern</button>
