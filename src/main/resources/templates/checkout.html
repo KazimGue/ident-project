@@ -35,16 +35,26 @@
 </div>
 
 
-<p th:text=$"{mykey}"></p>
+<!--<p th:text=$"{mykey}"></p>-->
+<tr th:each="bewertung: ${mykey}">
+    <td th:text="${bewertung.bewertungText}"></td>
+
+
+</tr>
+
+
+
 <script th:inline="javascript">
 
-/*<![CDATA[*/
+    /*<![CDATA[*/
 
-var myval = /*[[${mykey}]]*/ "TestStaticValue";
-alert (myval);
+    var myval = /*[[${mykey}]]*/ 'TestStaticValue';
+alert(myval);
 
-/*]]>*/
+    /*]]>*/
 </script>
+
+
 </body>
 
 

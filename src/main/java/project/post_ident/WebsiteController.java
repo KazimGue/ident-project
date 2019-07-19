@@ -39,8 +39,10 @@ public class WebsiteController {
     @GetMapping(value = "/zeigeCheckout")
     public String zeigeCheckout(Model model){
 
-        model.addAttribute("mykey","myvalue");
+
+        /*model.addAttribute("mykey","myvalue")*/;
         ArrayList myList= new ArrayList();
+        model.addAttribute("mykey",myList);
 
         Bewertung bewertung1=new Bewertung();
         bewertung1.setBewertungText("super Seite");
