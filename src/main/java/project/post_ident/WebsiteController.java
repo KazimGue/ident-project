@@ -45,18 +45,35 @@ public class WebsiteController {
 
     //Bringt zu der HTML-Seite, auf der ein neues Objekt hinzugefügt wird
     @GetMapping(value = "/datenAendern")
-    public String personenDatenAendern(
-            Model model) {
+    public String personenDatenAendern(Model model) {
 
-        model.addAttribute("neuePersonenDaten", new Personendaten());
+        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
+        model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
+
+        Personendaten neuePerson = new Personendaten();
+        model.addAttribute("neuePersonenDaten", neuePerson);
+
 
         return "datenAendern";
     }
+
     //Speicherung der eingegebenen Daten
     @PostMapping(value = "/datenSpeichern")
-    public String personenDatenSpeichern(Model model, @ModelAttribute("neuePersonenDaten") Personendaten personendaten){
+    public String personenDatenSpeichern(Model model,
+            @ModelAttribute("neuePersonenDaten") Personendaten neuePerson){
 
-        personenDatenRepository.save(personendaten);
+        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
+        model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
+
+        neuePerson.setVorname(tempPersonenDatenListe.get(0).getVorname());
+        neuePerson.setNachname(tempPersonenDatenListe.get(0).getNachname());
+        neuePerson.setPersoNr(tempPersonenDatenListe.get(0).getPersoNr());
+        neuePerson.setStrasse(tempPersonenDatenListe.get(0).getStrasse());
+        neuePerson.setHausnummer(tempPersonenDatenListe.get(0).getHausnummer());
+        neuePerson.setPlz(tempPersonenDatenListe.get(0).getPlz());
+        neuePerson.setStadt(tempPersonenDatenListe.get(0).getStadt());
+
+       personenDatenRepository.save(neuePerson);
 
         return "checkout";
     }
