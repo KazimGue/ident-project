@@ -23,6 +23,7 @@ public class WebsiteController {
     // Startseite öffnen
     @GetMapping(value = "/")
     public String startSeiteOeffnen() {
+
         return "startseite";
     }
 
