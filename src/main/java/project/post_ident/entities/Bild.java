@@ -27,20 +27,20 @@ public class Bild {
 
     private String name;
 
-    // byte array erstellen zur Speicherung von Bildern
-   @Lob
+   /* // byte array erstellen zur Speicherung von Bildern
+    @Lob
     private byte[] bild;
 
-
-    // GEETTER UND SETTER
+    // Getter und Setter
     public void setBild(byte[] bild) {
         this.bild = bild;
     }
 
     public byte[] getBild() {
         return bild;
-    }
+    }*/
 
+    // GEETTER UND SETTER
     public Long getId() {
         return id;
     }

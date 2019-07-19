@@ -9,17 +9,12 @@
 
 <h1>PERSON ANLEGEN</h1>
 
-
-<form th:action="@{/bildhochladen}"
-      th:object="${neuesBild}" method="post"
-      >
+<form method="POST" action="/filehochladen" enctype="multipart/form-data">
     <label>Wählen Sie eine Bilddatei (*.png, *.jpg usw.) von Ihrem Rechner aus.</label>
-
-
-        <input  name="datei" type="file" size="50" accept=".png,.jpg" th:field="*{bild}">
     <br>
     <br>
-        <input type="submit" value="Anlegen"/>
+    <input type="file" name="file" size="50" accept=".png,.jpg" /><br/><br/>
+    <input type="submit" value="Anlegen" />
 </form>
 
 
