@@ -33,8 +33,10 @@ public class WebsiteController {
         // In die Methodenparameter einfügen?
         // bildRepository.save(bild);
 
-        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
+       List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
         model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
+        model.addAttribute("originalPerson", new Personendaten());
+
         return "vergleich";
     }
 
@@ -48,11 +50,11 @@ public class WebsiteController {
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(Model model) {
 
-        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
-        model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
+        Long tempID= new Long(1);
+        Optional<TempPersonendaten> tempPersonendaten1 = tempPersonenDatenRepository.findById(tempID);
+        TempPersonendaten tempPersonendaten=tempPersonendaten1.get();
 
-        Personendaten neuePerson = new Personendaten();
-        model.addAttribute("neuePersonenDaten", neuePerson);
+        model.addAttribute("tempPersonenDaten", tempPersonendaten);
 
 
         return "datenAendern";
@@ -61,20 +63,41 @@ public class WebsiteController {
     //Speicherung der eingegebenen Daten
     @PostMapping(value = "/datenSpeichern")
     public String personenDatenSpeichern(Model model,
-            @ModelAttribute("neuePersonenDaten") Personendaten neuePerson){
+            @ModelAttribute("tempPersonenDaten") TempPersonendaten tempPersonendaten){
+
+
+        Personendaten neuePerson = new Personendaten();
+
+        neuePerson.setVorname(tempPersonendaten.getVorname());
+        neuePerson.setNachname(tempPersonendaten.getNachname());
+        neuePerson.setPersoNr(tempPersonendaten.getPersoNr());
+        neuePerson.setStrasse(tempPersonendaten.getStrasse());
+        neuePerson.setHausnummer(tempPersonendaten.getHausnummer());
+        neuePerson.setPlz(tempPersonendaten.getPlz());
+        neuePerson.setStadt(tempPersonendaten.getStadt());
+
+       personenDatenRepository.save(neuePerson);
+
+        return "checkout";
+    }
+
+    @PostMapping(value ="originalSpeichern")
+    public String originalDatenSpeichern(Model model,
+         @ModelAttribute("originalPerson") Personendaten originalPerson){
 
         List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
         model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
 
-        neuePerson.setVorname(tempPersonenDatenListe.get(0).getVorname());
-        neuePerson.setNachname(tempPersonenDatenListe.get(0).getNachname());
-        neuePerson.setPersoNr(tempPersonenDatenListe.get(0).getPersoNr());
-        neuePerson.setStrasse(tempPersonenDatenListe.get(0).getStrasse());
-        neuePerson.setHausnummer(tempPersonenDatenListe.get(0).getHausnummer());
-        neuePerson.setPlz(tempPersonenDatenListe.get(0).getPlz());
-        neuePerson.setStadt(tempPersonenDatenListe.get(0).getStadt());
+        originalPerson.setVorname(tempPersonenDatenListe.get(0).getVorname());
+        originalPerson.setNachname(tempPersonenDatenListe.get(0).getNachname());
+        originalPerson.setPersoNr(tempPersonenDatenListe.get(0).getPersoNr());
+        originalPerson.setStrasse(tempPersonenDatenListe.get(0).getStrasse());
+        originalPerson.setHausnummer(tempPersonenDatenListe.get(0).getHausnummer());
+        originalPerson.setPlz(tempPersonenDatenListe.get(0).getPlz());
+        originalPerson.setStadt(tempPersonenDatenListe.get(0).getStadt());
 
-       personenDatenRepository.save(neuePerson);
+        personenDatenRepository.save(originalPerson);
+
 
         return "checkout";
     }
