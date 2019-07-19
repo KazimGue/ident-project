@@ -55,7 +55,6 @@ public class WebsiteController {
        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
         model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
         model.addAttribute("originalPerson", new Personendaten());
-
         return "vergleich";
     }
 
@@ -89,7 +88,7 @@ public class WebsiteController {
 
         bildRepository.save(bild);
 
-        return "vergleich";
+        return "redirect:/bildhochladen";
     }
 
 
