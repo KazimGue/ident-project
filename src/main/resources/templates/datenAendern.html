@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <title>PostIdent</title>
-    <link href="vergleich.css" rel="stylesheet">
+    <link href="../css/vergleich.css" rel="stylesheet">
 </head>
 <body>
 
-<h1>Daten abgleichen:</h1>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbar-collapse-main">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="active" href="#">Daten abgleichen</a> </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="home">
+<h2>Daten abgleichen:</h2>
 <div class="container-fluid" >
     <div class="row">
         <div class="col-md-6">
@@ -48,8 +59,8 @@
                             <input  th:field="*{stadt}" type="text" class="form-control" id="stadt" placeholder="Stadt">
                         </div>
                 <div style="text-align: center">
-                    <button type="submit"  id="datenAendern_speichern" class="btn btn-warning">Speichern</button>
-                    <button class="btn btn-warning" type="submit"><a th:href="@{/}">Vorgang abbrechen</a></button>
+                    <button type="submit" class="btn btn-inverse">Speichern</button>
+                    <button class="btn btn-inverse" type="submit"><a th:href="@{/}">Vorgang abbrechen</a></button>
                 </div>
 
             </form>
@@ -60,6 +71,11 @@
         </div>
     </div>
 </div>
+</div>
+
+    <footer class="container-fluid text-center fixed">
+        <h3>Impressum</h3>
+    </footer>
 
 
 <!-- Optional JavaScript -->

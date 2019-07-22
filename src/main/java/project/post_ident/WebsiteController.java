@@ -63,7 +63,8 @@ public class WebsiteController {
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         //Save the uploaded file to this folder
-        String UPLOADED_FOLDER = "C:\\Users\\kcoep\\project_postident\\src\\main\\resources\\static\\images\\";
+        String UPLOADED_FOLDER = "C:\\Users\\rapha\\IdeaProjects\\project_postident\\src\\main\\resources\\static\\images\\";
+
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("/message", "Please select a file to upload");
