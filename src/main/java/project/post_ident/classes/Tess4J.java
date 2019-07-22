@@ -5,6 +5,8 @@ import net.sourceforge.tess4j.TesseractException;
 
 import java.io.File;
 
+import static project.post_ident.classes.BildZuschneiden.bildZuschneiden;
+
 public class Tess4J {
 
     public static Tesseract getTesseract() {
@@ -14,10 +16,10 @@ public class Tess4J {
         return tesseract;
     }
 
-    public static String getResult() {
+    public static OCRResultObject getResult() {
         Tesseract tesseract = getTesseract();
 
-        BildZuschneiden.bildZuschneiden();
+        bildZuschneiden();
         File file = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.jpg");
         File file2 = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.jpg");
         String result = null;
@@ -33,7 +35,8 @@ public class Tess4J {
             e.printStackTrace();
         }
 
-        return result+result2;
+        OCRResultObject ocrResultObject= new OCRResultObject(result,result2);
+        return ocrResultObject;
     }
 
 }

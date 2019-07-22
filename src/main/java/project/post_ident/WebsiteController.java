@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project.post_ident.classes.OCRResultObject;
 import project.post_ident.entities.Personendaten;
 import project.post_ident.entities.TempPersonendaten;
 import project.post_ident.repository.PersonenDatenRepository;
@@ -169,9 +170,12 @@ public class WebsiteController {
     public String ocrImage(Model model) {
 
 
-       String resultOCR=getResult();
+       OCRResultObject ocrResultObject =getResult();
+       String resultOCR=ocrResultObject.getResult();
+       String resultOCR2=ocrResultObject.getResult2();
 
        model.addAttribute("ocrResult",resultOCR);
+       model.addAttribute("ocrResult2",resultOCR2);
         System.out.println("OCR Result: " +resultOCR);
         return "ocrResult";
 
