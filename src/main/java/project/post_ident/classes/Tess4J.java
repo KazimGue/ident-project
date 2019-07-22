@@ -16,14 +16,16 @@ public class Tess4J {
 
     public static String getResult() {
         Tesseract tesseract = getTesseract();
-        /*File file = new File("src\\main\\resources\\imageOutputs\\testTextOCR.png");*/
-        /*File file = new File("src\\main\\resources\\imageOutputs\\personalausweisVorne.png");*/
-        File file = new File("src\\main\\resources\\static\\images\\personalausweisVorne_clean.png");
-        /*File file = new File("src\\main\\resources\\personalausweisVorne_clean.png");*/
+
+        BildZuschneiden.bildZuschneiden();
+        File file = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.jpg");
+        File file2 = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.jpg");
         String result = null;
+        String result2 = null;
         try {
 
-            result = tesseract.doOCR(file);
+            result = tesseract.doOCR(file );
+            result2 = tesseract.doOCR(file2);
 
         } catch
         (
@@ -31,7 +33,7 @@ public class Tess4J {
             e.printStackTrace();
         }
 
-        return result;
+        return result+result2;
     }
 
 }
