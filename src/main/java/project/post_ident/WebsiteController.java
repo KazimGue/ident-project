@@ -30,7 +30,7 @@ import java.nio.file.Paths;
 import java.sql.*;
 
 import static project.post_ident.classes.Tess4J.getResult;
-import static project.post_ident.classes.Tess4J.getTesseract;
+
 
 @Controller
 public class WebsiteController {
@@ -55,8 +55,27 @@ public class WebsiteController {
     // Bild hochladen Methode
     @RequestMapping(value = "bildhochladen")
     public String bildHochladen(Model model) {
-        // In die Methodenparameter einfügen?
-        // bildRepository.save(bild);
+
+        OCRResultObject ocrResultObject = getResult();
+        String resultOCR = ocrResultObject.getResult();
+        String resultOCR2 = ocrResultObject.getResult2();
+        String[] lines = resultOCR.split("[\\r\\n]+");
+        String[] lines2 = resultOCR2.split("[\\r\\n]+");
+        String nachname = lines[1].replaceAll(" ", "");
+        String vorname = lines[4].replaceAll(" ", "");
+        String geburtstag = lines2[1].replaceAll("[^\\d.]",  "");
+
+        TempPersonendaten gescannteDaten = new TempPersonendaten();
+        gescannteDaten.setNachname(nachname);
+        gescannteDaten.setVorname(vorname);
+        gescannteDaten.setPersoNr("Personummer");
+        //gescannteDaten.setGeburtsdatum(geburtstag);
+        gescannteDaten.setStrasse("Straße");
+        gescannteDaten.setHausnummer("HausNr");
+        gescannteDaten.setPlz(12345);
+        gescannteDaten.setStadt("Stadt");
+
+        tempPersonenDatenRepository.save(gescannteDaten);
 
        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
         model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
@@ -178,6 +197,8 @@ public class WebsiteController {
        model.addAttribute("ocrResult2",resultOCR2);
         System.out.println("OCR Result1: " +resultOCR);
         System.out.println("OCR Result2: " +resultOCR);
+
+
         return "ocrResult";
 
 

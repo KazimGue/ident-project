@@ -12,6 +12,7 @@ public class BildZuschneiden {
 
         public static void bildZuschneiden() {
             try {
+                //BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\personalausweisVorneclean.png"));
                 BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\personalausweisVorneclean.png"));
 
                 //total width and total height of an image
@@ -35,12 +36,12 @@ public class BildZuschneiden {
 
                 try {
                 BufferedImage SubImgage = originalImage.getSubimage(firstX, firstY, firstPartWidth, firstPartHeight);
-                File outputfileName = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.jpg");
-                ImageIO.write(SubImgage, "jpg", outputfileName);
+                File outputfileName = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.png");
+                ImageIO.write(SubImgage, "png", outputfileName);
 
                 BufferedImage SubImgageTwo = originalImage.getSubimage(secondX, secondY, secondPartWidth, secondPartHeight);
-                File outputfileGeburt = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.jpg");
-                ImageIO.write(SubImgageTwo, "jpg", outputfileGeburt);
+                File outputfileGeburt = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.png");
+                ImageIO.write(SubImgageTwo, "png", outputfileGeburt);
 
                 } catch (Exception e) {
                     e.printStackTrace();

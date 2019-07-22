@@ -20,8 +20,8 @@ public class Tess4J {
         Tesseract tesseract = getTesseract();
 
         bildZuschneiden();
-        File file = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.jpg");
-        File file2 = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.jpg");
+        File file = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.png");
+        File file2 = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.png");
         String result = null;
         String result2 = null;
         try {
