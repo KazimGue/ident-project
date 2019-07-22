@@ -1,4 +1,6 @@
 package project.post_ident;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
+
+import static project.post_ident.classes.Tess4J.getResult;
+import static project.post_ident.classes.Tess4J.getTesseract;
 
 @Controller
 public class WebsiteController {
@@ -63,7 +68,7 @@ public class WebsiteController {
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         //Save the uploaded file to this folder
-        String UPLOADED_FOLDER = "C:\\Users\\rapha\\IdeaProjects\\project_postident\\src\\main\\resources\\static\\images\\";
+        String UPLOADED_FOLDER = "src\\main\\resources\\static\\images\\";
 
 
         if (file.isEmpty()) {
@@ -160,6 +165,17 @@ public class WebsiteController {
     }
 
 
+    @GetMapping (value = "/ocrResult")
+    public String ocrImage(Model model) {
+
+
+       String resultOCR=getResult();
+
+       model.addAttribute("ocrResult",resultOCR);
+        System.out.println("COntroller: " +resultOCR);
+        return "ocrResult";
+
+    }
 
 
 
