@@ -169,19 +169,35 @@ public class WebsiteController {
     @GetMapping (value = "/ocrResult")
     public String ocrImage(Model model) {
 
-
-       OCRResultObject ocrResultObject =getResult();
-       String resultOCR=ocrResultObject.getResult();
-       String resultOCR2=ocrResultObject.getResult2();
+       OCRResultObject ocrResultObject = getResult();
+       String resultOCR = ocrResultObject.getResult();
+       String resultOCR2 = ocrResultObject.getResult2();
 
        model.addAttribute("ocrResult",resultOCR);
        model.addAttribute("ocrResult2",resultOCR2);
         System.out.println("OCR Result1: " +resultOCR);
-        System.out.println("OCR Result2: " +resultOCR);
+        System.out.println("OCR Result2: " +resultOCR2);
+
+
+        //Aufteilung der String in Arrays um mit den Zeilenumbrüchen nach
+        //entsprechenden String-Teilen zu suchen
+
+        String[] lines = resultOCR.split("[\\r\\n]+");
+        String[] lines2 = resultOCR2.split("[\\r\\n]+");
+        String nachname = lines[1].replaceAll(" ", "");
+        String vorname = lines[4].replaceAll(" ", "");
+        String geburtstag = lines2[1].replaceAll("[^\\d.]",  "");
+        System.out.println("Nachname: " + nachname);
+        System.out.println("Vorname: " + vorname);
+        System.out.println("Geburtstag: " + geburtstag);
+
+        String alleDaten = vorname + " " + nachname + ", geboren am: " + geburtstag;
+        model.addAttribute("alleDaten", alleDaten);
         return "ocrResult";
 
-
     }
+
+
 
 
 
