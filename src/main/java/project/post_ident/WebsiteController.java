@@ -172,7 +172,7 @@ public class WebsiteController {
        String resultOCR=getResult();
 
        model.addAttribute("ocrResult",resultOCR);
-        System.out.println("COntroller: " +resultOCR);
+        System.out.println("OCR Result: " +resultOCR);
         return "ocrResult";
 
     }

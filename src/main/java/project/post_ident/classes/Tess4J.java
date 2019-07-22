@@ -24,7 +24,7 @@ public class Tess4J {
         try {
 
             result = tesseract.doOCR(file);
-            System.out.println(result);
+
         } catch
         (
                 TesseractException e) {
