@@ -11,6 +11,7 @@ import project.post_ident.entities.TempPersonendaten;
 import project.post_ident.repository.PersonenDatenRepository;
 import project.post_ident.repository.TempPersonenDatenRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.*;
@@ -176,12 +177,65 @@ public class WebsiteController {
 
        model.addAttribute("ocrResult",resultOCR);
        model.addAttribute("ocrResult2",resultOCR2);
-        System.out.println("OCR Result1: " +resultOCR);
-        System.out.println("OCR Result2: " +resultOCR);
+        System.out.println(resultOCR);
+        System.out.println(resultOCR2);
+
+        String vornameString = resultOCR;
+        //vornameString = resultOCR.replaceAll("\\s","");
+
+        // split Zeilenumbrüche: ("\\r?\\n")
+        // split bestimmte Zeichen: ("([/(\\-])")
+        String[] vorname = vornameString.split("\\r?\\n");
+
+
+
+        ArrayList<String> daten = new ArrayList<>();
+
+        for(String a : vorname){
+            System.out.println("vorher " + a);
+            String[] inhalt = a.split("(?=[a-z])");
+
+            for (String b : inhalt) {
+                System.out.println("For Schleife " + b);
+                if (b.length() > 3) {
+                    daten.add(b);
+                }
+            }
+        }
+
+        if(daten.size() <= 2){
+            String nachname = daten.get(0);
+            nachname = nachname.replaceAll(" \\s", "");
+            System.out.println("Nachname nach leerzeichen bei 2: " + nachname);
+
+            String name = daten.get(1);
+            name = name.replaceAll("\\s","");
+            System.out.println("Name nach leerzeichen bei 2: " + name);
+
+        } else if(daten.size() <=3){
+            String nachname = daten.get(0);
+            nachname = nachname.replaceAll("\\s","");
+            System.out.println("Nachname nach leerzeichen bei 3: " + nachname);
+
+            String geborenNamen = daten.get(1);
+            geborenNamen = geborenNamen.replaceAll("\\s", "");
+            geborenNamen = geborenNamen.replaceAll("\\(","");
+            System.out.println("GeborenName nach leerzeichen bei 3: " + geborenNamen);
+
+            String name = daten.get(2);
+            name = name.replaceAll("\\s", "");
+            System.out.println("Vorname nach leerzeichen bei 3: " + name);
+        }
+
+
+
+
         return "ocrResult";
 
-
     }
+
+
+
 
 
 

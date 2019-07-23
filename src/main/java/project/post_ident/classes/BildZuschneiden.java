@@ -22,25 +22,25 @@ public class BildZuschneiden {
 
                 //width and height of each piece
                 int firstPartWidth = 298;
-                int firstPartHeight = 165;
+                int firstPartHeight = 175;
 
-                int firstX = 447;
-                int firstY = 70;
+                int firstX = 440;
+                int firstY = 75;
 
-                int secondPartWidth = 500;
-                int secondPartHeight = 164;
+                int secondPartWidth = 490;
+                int secondPartHeight = 170;
 
-                int secondX =450;
-                int secondY = 242;
+                int secondX =440;
+                int secondY = 235;
 
                 try {
                 BufferedImage SubImgage = originalImage.getSubimage(firstX, firstY, firstPartWidth, firstPartHeight);
-                File outputfileName = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.jpg");
-                ImageIO.write(SubImgage, "jpg", outputfileName);
+                File outputfileName = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.png");
+                ImageIO.write(SubImgage, "png", outputfileName);
 
                 BufferedImage SubImgageTwo = originalImage.getSubimage(secondX, secondY, secondPartWidth, secondPartHeight);
-                File outputfileGeburt = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.jpg");
-                ImageIO.write(SubImgageTwo, "jpg", outputfileGeburt);
+                File outputfileGeburt = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.png");
+                ImageIO.write(SubImgageTwo, "png", outputfileGeburt);
 
                 } catch (Exception e) {
                     e.printStackTrace();
