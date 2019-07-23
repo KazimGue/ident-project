@@ -20,7 +20,7 @@ public class DummyMain {
                 "\n";*/
 
        /*String result="5:33.333]; 23:; :1 hiﬂh/ ﬁlaﬁiagﬁgR&Bhal’iakeﬂlNaﬂonalﬂyl 12 . 08 .1964 DEUTSCH Geburlwﬂ/Place of hll’ilI/Lleu de nalmnm B E R L I N";*/
-        String result="Berlin12. 08. 2 0 19  dchksdvhj";
+        String result="Berlin12. 08. 2 0 19  dchksdvBERLINhj";
         String result2=result.replaceAll("\\s",""); ;
         System.out.println(result2);
 
