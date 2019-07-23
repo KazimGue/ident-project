@@ -128,6 +128,7 @@ public class WebsiteController {
         neuePerson.setHausnummer(tempPersonendaten.getHausnummer());
         neuePerson.setPlz(tempPersonendaten.getPlz());
         neuePerson.setStadt(tempPersonendaten.getStadt());
+        neuePerson.setGeburtstag(tempPersonendaten.getGeburtstag());
 
        personenDatenRepository.save(neuePerson);
 
