@@ -31,11 +31,11 @@ public class BildHochladenLogik {
         ArrayList<String> daten = new ArrayList<>();
 
         for(String a : vorname){
-            System.out.println("vorher " + a);
+            /*System.out.println("vorher " + a);*/
             String[] inhalt = a.split("(?=[a-z])");
 
             for (String b : inhalt) {
-                System.out.println("For Schleife " + b);
+               /* System.out.println("For Schleife " + b);*/
                 if (b.length() > 3) {
                     daten.add(b);
                 }

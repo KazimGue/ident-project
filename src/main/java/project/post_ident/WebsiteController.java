@@ -1,6 +1,9 @@
 package project.post_ident;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -105,10 +108,17 @@ public class WebsiteController {
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(Model model) {
 
-        Long tempID= new Long(1);
-        Optional<TempPersonendaten> tempPersonendaten1 = tempPersonenDatenRepository.findById(tempID);
-        TempPersonendaten tempPersonendaten=tempPersonendaten1.get();
+
+        ArrayList<TempPersonendaten> tempPersonendatenList;
+        //Repository.findAll Ergebnis wird in eine ArrayList gecastet
+        tempPersonendatenList= (ArrayList<TempPersonendaten>) tempPersonenDatenRepository.findAll();
+        Long tempID=tempPersonendatenList.get(0).getPersonID();
+
+        /*TempPersonendaten tempPersonendaten=tempPersonendaten1.get();*/
+           Optional<TempPersonendaten> tempPersonendaten = tempPersonenDatenRepository.findById(tempID);
         model.addAttribute("tempPersonenDaten", tempPersonendaten);
+
+
 
         return "datenAendern";
     }
@@ -131,6 +141,7 @@ public class WebsiteController {
         neuePerson.setGeburtstag(tempPersonendaten.getGeburtstag());
 
        personenDatenRepository.save(neuePerson);
+       tempPersonenDatenRepository.deleteAll();
 
         return "checkout";
     }
