@@ -13,8 +13,8 @@ public class BildZuschneiden {
         public static void bildZuschneiden() throws IOException {
 
             try {
-            //BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\personalausweisVorneclean.png"));
-            BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\ausweisOlli.png"));
+            BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\personalausweisVorneclean.png"));
+            //BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\ausweisOlli.png"));
 
 
             try {
