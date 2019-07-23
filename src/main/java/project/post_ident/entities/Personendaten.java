@@ -20,6 +20,8 @@ public class Personendaten {
 
     private String persoNr;
 
+    private String geburtstag;
+
     private String strasse;
 
     private String hausnummer;
@@ -90,5 +92,13 @@ public class Personendaten {
 
     public void setStadt(String stadt) {
         this.stadt = stadt;
+    }
+
+    public String getGeburtstag() {
+        return geburtstag;
+    }
+
+    public void setGeburtstag(String geburtstag) {
+        this.geburtstag = geburtstag;
     }
 }

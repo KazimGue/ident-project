@@ -54,14 +54,17 @@ public class WebsiteController {
 
     // Bild hochladen Methode
     @RequestMapping(value = "bildhochladen")
-    public String bildHochladen(Model model) {
+    public String bildHochladen(Model model) throws IOException {
 
         OCRResultObject ocrResultObject = getResult();
         String resultOCR = ocrResultObject.getResult();
         String resultOCR2 = ocrResultObject.getResult2();
+        System.out.println(resultOCR+resultOCR2);
         String[] lines = resultOCR.split("[\\r\\n]+");
         String[] lines2 = resultOCR2.split("[\\r\\n]+");
         String nachname = lines[1].replaceAll(" ", "");
+
+
         String vorname = lines[4].replaceAll(" ", "");
         String geburtstag = lines2[1].replaceAll("[^\\d.]",  "");
 
@@ -69,7 +72,7 @@ public class WebsiteController {
         gescannteDaten.setNachname(nachname);
         gescannteDaten.setVorname(vorname);
         gescannteDaten.setPersoNr("Personummer");
-        //gescannteDaten.setGeburtsdatum(geburtstag);
+        gescannteDaten.setGeburtstag(geburtstag);
         gescannteDaten.setStrasse("Straße");
         gescannteDaten.setHausnummer("HausNr");
         gescannteDaten.setPlz(12345);
@@ -168,6 +171,7 @@ public class WebsiteController {
         originalPerson.setVorname(tempPersonenDatenListe.get(0).getVorname());
         originalPerson.setNachname(tempPersonenDatenListe.get(0).getNachname());
         originalPerson.setPersoNr(tempPersonenDatenListe.get(0).getPersoNr());
+        originalPerson.setGeburtstag(tempPersonenDatenListe.get(0).getGeburtstag());
         originalPerson.setStrasse(tempPersonenDatenListe.get(0).getStrasse());
         originalPerson.setHausnummer(tempPersonenDatenListe.get(0).getHausnummer());
         originalPerson.setPlz(tempPersonenDatenListe.get(0).getPlz());
@@ -186,7 +190,7 @@ public class WebsiteController {
 
 
     @GetMapping (value = "/ocrResult")
-    public String ocrImage(Model model) {
+    public String ocrImage(Model model) throws IOException {
 
 
        OCRResultObject ocrResultObject =getResult();

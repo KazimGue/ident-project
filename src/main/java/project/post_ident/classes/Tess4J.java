@@ -4,6 +4,7 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
 import java.io.File;
+import java.io.IOException;
 
 import static project.post_ident.classes.BildZuschneiden.bildZuschneiden;
 
@@ -16,7 +17,7 @@ public class Tess4J {
         return tesseract;
     }
 
-    public static OCRResultObject getResult() {
+    public static OCRResultObject getResult() throws IOException {
         Tesseract tesseract = getTesseract();
 
         bildZuschneiden();

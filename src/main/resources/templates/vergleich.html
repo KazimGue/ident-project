@@ -41,6 +41,10 @@
                     <input disabled th:value="${person.persoNr}" type="text" class="form-control" id="persoNr" placeholder="Personalausweis-Nr">
                 </div>
                 <div class="form-group">
+                    <label for="geburtstag">Geburtstag:</label>
+                    <input readonly th:value="${person.geburtstag}" type="text" class="form-control" id="geburtstag" placeholder="Geburtstag">
+                </div>
+                <div class="form-group">
                     <label for="strasse">Straße:</label>
                     <input readonly th:value="${person.strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
                 </div>
