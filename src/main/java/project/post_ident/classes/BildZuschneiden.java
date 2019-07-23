@@ -14,7 +14,7 @@ public class BildZuschneiden {
 
         public static void bildZuschneiden() {
             try {
-                BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\perso_felixHC.png"));
+                BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\ausweisOlli.png"));
 
 
                 //total width and total height of an image
