@@ -80,12 +80,6 @@ public class BildHochladenLogik {
             System.out.println("Geburtsdatun: " +datum);
         }
 
-
-
-
-
-
-
         TempPersonendaten gescannteDaten = new TempPersonendaten();
         gescannteDaten.setNachname(nachname);
         gescannteDaten.setVorname(name);

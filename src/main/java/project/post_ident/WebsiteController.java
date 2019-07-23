@@ -11,6 +11,9 @@ import project.post_ident.entities.TempPersonendaten;
 import project.post_ident.repository.PersonenDatenRepository;
 import project.post_ident.repository.TempPersonenDatenRepository;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +23,11 @@ import project.post_ident.entities.Bild;
 import project.post_ident.repository.BildRepository;
 
 
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
-import static project.post_ident.classes.Tess4J.getResult;
 
 
 @Controller
@@ -45,9 +44,11 @@ public class WebsiteController {
 
     // Startseite öffnen
     @GetMapping(value = "/")
-    public String startSeiteOeffnen(Model model) {
+    public String startSeiteOeffnen(Model model) throws IOException {
+
         Bild bild = new Bild();
         model.addAttribute("neuesBild", bild);
+
         return "startseite";
     }
 
@@ -83,7 +84,9 @@ public class WebsiteController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
+             Files.write(path, bytes);
+            //Umbenennung des Bildes
+            Files.move(path, path.resolveSibling("persoUpload.png"));
 
             redirectAttributes.addFlashAttribute("successMessage",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
@@ -91,6 +94,7 @@ public class WebsiteController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         Bild bild = new Bild();
         bild.setName(file.getOriginalFilename());
@@ -117,7 +121,6 @@ public class WebsiteController {
     @PostMapping(value = "/datenSpeichern")
     public String personenDatenSpeichern(Model model,
             @ModelAttribute("tempPersonenDaten") TempPersonendaten tempPersonendaten){
-
 
         Personendaten neuePerson = new Personendaten();
 
@@ -153,12 +156,12 @@ public class WebsiteController {
 
         personenDatenRepository.save(originalPerson);
 
-
         return "checkout";
     }
 
     @GetMapping(value = "/zeigeCheckout")
-    public String zeigeCheckout(){
+    public String zeigeCheckout() throws IOException {
+
         return "checkout";
     }
 
