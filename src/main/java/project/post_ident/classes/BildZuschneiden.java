@@ -13,12 +13,9 @@ import java.io.IOException;
 // die dann von der Tess4j-Klasse ausgelesen werden
 public class BildZuschneiden {
 
-    public static void bildZuschneiden() throws IOException {
+    public static void bildZuschneiden(String pathname) throws IOException {
 
         try {
-            String homedirectory=System.getProperty("user.home");
-            String UPLOADED_FOLDER = homedirectory+"\\Pictures\\";
-            String pathname= UPLOADED_FOLDER+"persoUpload.png";
 
             BufferedImage originalImage = ImageIO.read(new File(pathname));
 

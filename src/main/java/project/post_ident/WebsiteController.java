@@ -60,12 +60,13 @@ public class WebsiteController {
     private PersonenDatenService personenDatenService;
 
     Long tempID;
+    String pathname;
 
     // Startseite öffnen
     @GetMapping(value = "/")
     public String startSeiteOeffnen(Model model) {
 
-        DeleteOldImage.deleteOldImage();
+        /*DeleteOldImage.deleteOldImage();*/
 
         Bild bild = new Bild();
         model.addAttribute("neuesBild", bild);
@@ -77,9 +78,8 @@ public class WebsiteController {
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         //Save the uploaded file to this folder
-    /*    String UPLOADED_FOLDER = "src\\main\\resources\\static\\images\\";*/
-        String homedirectory=System.getProperty("user.home");
-        String UPLOADED_FOLDER = homedirectory+"\\Pictures\\";
+        String UPLOADED_FOLDER = "src\\main\\resources\\static\\images\\";
+
 
 
         if (file.isEmpty()) {
@@ -89,16 +89,16 @@ public class WebsiteController {
 
         try {
 
-            File file2 = new File("C:\\Users\\krach\\Pictures\\persoUpload.png");
-            /*File file = new File("src\\main\\resources\\static\\images\\persoUpload.png");*/
-            file2.delete();
+
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
             //Umbenennung des Bildes
-            /*Files.move(path, path.resolveSibling(UUID.randomUUID().toString() + ".png"));*/
-            Files.move(path, path.resolveSibling("persoUpload.png"));
+            String rndName=UUID.randomUUID().toString()+"persoUpload.png";
+            Files.move(path, path.resolveSibling(rndName));
+            pathname=UPLOADED_FOLDER+rndName;
+            System.out.println(pathname);
 
             redirectAttributes.addFlashAttribute("successMessage",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
@@ -120,7 +120,7 @@ public class WebsiteController {
     public String bildHochladen(Model model) throws IOException {
 
 
-        TempPersonendaten gescannteDaten=bildHochladenLogik.bildHochladenLogik();
+        TempPersonendaten gescannteDaten=bildHochladenLogik.bildHochladenLogik(pathname);
 
         tempPersonenDatenRepository.save(gescannteDaten);
 
@@ -129,6 +129,7 @@ public class WebsiteController {
 
         Optional<TempPersonendaten> tempPersonendaten=tempPersonenDatenRepository.findById(tempID);
         TempPersonendaten tempPersonendaten2=tempPersonendaten.get();
+        model.addAttribute("pathname",pathname);
         model.addAttribute("tempPersonendaten2", tempPersonendaten2);
         model.addAttribute("originalPerson", new Personendaten());
         return "vergleich";

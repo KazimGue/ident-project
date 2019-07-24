@@ -19,9 +19,9 @@ public class BildHochladenLogik {
 
 
 
-    public TempPersonendaten bildHochladenLogik() throws IOException {
+    public TempPersonendaten bildHochladenLogik(String pathname) throws IOException {
 
-        OCRResultObject ocrResultObject = getResult();
+        OCRResultObject ocrResultObject = getResult(pathname);
         String resultOCR = ocrResultObject.getResult();
         String resultOCR2 = ocrResultObject.getResult2();
         System.out.println(resultOCR+resultOCR2);
