@@ -40,7 +40,7 @@ public class BildZuschneiden {
             int secondPartHeight = 170;
 
             int secondX = 440;
-            int secondY = 235;
+            int secondY = 270;
 
             try {
                 BufferedImage SubImgage = resized.getSubimage(firstX, firstY, firstPartWidth, firstPartHeight);

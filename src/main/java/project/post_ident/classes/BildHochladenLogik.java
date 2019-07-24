@@ -7,6 +7,8 @@ import project.post_ident.repository.TempPersonenDatenRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +37,7 @@ public class BildHochladenLogik {
             String[] inhalt = a.split("(?=[a-z])");
 
             for (String b : inhalt) {
-               /* System.out.println("For Schleife " + b);*/
+                /* System.out.println("For Schleife " + b);*/
                 if (b.length() > 3) {
                     daten.add(b);
                 }else {
@@ -78,25 +80,90 @@ public class BildHochladenLogik {
             System.out.println("Mehr als 3 Daten gefunden deshalb nicht zuordnenbar");
         }
 
-        // Datum zuordnen
-        String datum = "";
-        String sampleDate=resultOCR2.replaceAll("\\s", "");
-        Pattern pattern2 = Pattern.compile("(\\d{2}.\\d{2}.\\d{4})");
-        Matcher m2 = pattern2.matcher(sampleDate);
-        if (m2.find()) {
-            datum=m2.group(1);
-            System.out.println("Geburtsdatun: " +datum);
+
+        /*
+        Bildzuschnitt Nummer 2 auslesen. LOGIK
+        Geburtsdatum + Staatsangehörigkeit + Geburtsort auslesen und zuordnen
+        */
+
+        // 1. String nach Zeilenumbrüchen aufteilen und in StringArray erstellen
+        String[] bildabschnitt2 = resultOCR2.split("\\r?\\n");
+
+        // 1a. Leere Strings löschen
+        List<String> datenblock2 = new ArrayList(Arrays.asList(bildabschnitt2));
+        datenblock2.removeAll(Arrays.asList("", null));
+        String[] bildabschnitt2Gesauebert = new String[datenblock2.size()];
+        bildabschnitt2Gesauebert = datenblock2.toArray(bildabschnitt2Gesauebert);
+
+
+
+
+
+
+        // ArrayList und Strings für die Iteration  und danach erstellen
+//        ArrayList<String> datenblock2 = new ArrayList<>();
+        List<String> datenblock3 = new ArrayList<String>(Arrays.asList(bildabschnitt2));
+        String geburtsdatumOrt ="";
+        String geburtsDatum ="";
+        String staatsangehörigkeit ="";
+        String geburtsOrtZeile ="";
+        String geburtsOrt ="";
+
+        // 2. check ob in der Zeile mehrere Zahlen sind, dann lösch die Leerzeichen (if dann Bedingung)
+        for(String a:bildabschnitt2Gesauebert){
+            if(a.matches("(?:\\d.*?){4,}")){
+                geburtsdatumOrt = a;
+                int i = datenblock2.indexOf(a)+2;
+                geburtsOrtZeile = datenblock2.get(i);
+                datenblock2.remove(geburtsdatumOrt);
+                geburtsdatumOrt = a.replaceAll("\\s","");
+                System.out.println("GEburtsdatum+ort " + geburtsdatumOrt);
+//              datenblock3 = Arrays.asList(bildabschnitt2);
+            }
         }
+
+        // + 2a. extrahier die Zahlen in Datum Pattern und
+        Pattern pattern2 = Pattern.compile("(\\d{2}.\\d{2}.\\d{4})");
+        Matcher m2 = pattern2.matcher(geburtsdatumOrt);
+        if (m2.find()) {
+            geburtsDatum=m2.group(1);
+            System.out.println("Geburtsdatum: " +geburtsDatum);
+        }
+
+        // 2b. das Wort mit Großbuchstabe in Staatsangehörigkeit (Pattern)
+        Pattern patternAZ = Pattern.compile("[A-Z]+");
+        Matcher m3 = patternAZ.matcher(geburtsdatumOrt);
+        if (m3.find()) {
+            staatsangehörigkeit=m3.group();
+            System.out.println("Staatsangehörigkeit: " +staatsangehörigkeit);
+        }
+
+        staatsangehörigkeit = staatsangehörigkeit.replaceAll("\\s","");
+        geburtsOrt = geburtsOrt.replaceAll("\\s","");
+        geburtsOrtZeile = geburtsOrtZeile.replaceAll("\\s","");
+
+        // get GeburtsortZeilen String und großbuchstaben
+        Matcher m4 = patternAZ.matcher(geburtsOrtZeile);
+        if (m4.find()) {
+            geburtsOrt=m4.group();
+            System.out.println("Geburtsort: " +geburtsOrt);
+        }
+
+        // 4. lösch die Leerzeichen
+        staatsangehörigkeit = staatsangehörigkeit.replaceAll("\\s","");
+        geburtsOrt = geburtsOrt.replaceAll("\\s","");
+
+
 
         TempPersonendaten gescannteDaten = new TempPersonendaten();
         gescannteDaten.setNachname(nachname);
         gescannteDaten.setVorname(name);
         gescannteDaten.setPersoNr("Personummer");
-        gescannteDaten.setGeburtstag(datum);
-        gescannteDaten.setStrasse("Straße");
+        gescannteDaten.setGeburtstag(geburtsDatum);
+        gescannteDaten.setStrasse(staatsangehörigkeit);
         gescannteDaten.setHausnummer("HausNr");
         gescannteDaten.setPlz(12345);
-        gescannteDaten.setStadt("Stadt");
+        gescannteDaten.setStadt(geburtsOrt);
 
         return gescannteDaten;
 
