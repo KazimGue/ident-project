@@ -2,6 +2,7 @@ package project.post_ident.classes;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.io.File;
 import java.io.IOException;

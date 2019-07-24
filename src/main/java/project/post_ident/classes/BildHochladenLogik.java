@@ -1,6 +1,7 @@
 package project.post_ident.classes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import project.post_ident.entities.TempPersonendaten;
 import project.post_ident.repository.BildRepository;
 import project.post_ident.repository.TempPersonenDatenRepository;
@@ -13,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static project.post_ident.classes.Tess4J.getResult;
+
 
 public class BildHochladenLogik {
 
@@ -41,7 +43,7 @@ public class BildHochladenLogik {
                 if (b.length() > 3) {
                     daten.add(b);
                 }else {
-                    System.out.println("Keine Daten länger als 3");
+                    /*System.out.println("Keine Daten länger als 3");*/
                 }
             }
         }

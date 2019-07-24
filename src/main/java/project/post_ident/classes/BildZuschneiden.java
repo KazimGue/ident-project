@@ -1,5 +1,7 @@
 package project.post_ident.classes;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -10,6 +12,8 @@ import java.io.IOException;
 
 //Klasse, die das hochgeladene Bild in mehrere Teile zugeschnitten wird,
 // die dann von der Tess4j-Klasse ausgelesen werden
+
+
 public class BildZuschneiden {
 
     public static void bildZuschneiden() throws IOException {

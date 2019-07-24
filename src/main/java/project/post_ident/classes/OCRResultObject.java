@@ -1,5 +1,7 @@
 package project.post_ident.classes;
 
+import org.springframework.cache.annotation.Cacheable;
+
 public class OCRResultObject {
 
     String result = null;
