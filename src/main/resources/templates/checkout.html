@@ -31,15 +31,15 @@
 
 <br>
 <div class="container">
-    <span  onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:20px;cursor:pointer;"  class="fa fa-star checked"></span>
+    <span   onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:20px;cursor:pointer;"  class="fa fa-star checked"></span>
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"  style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"  style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"  style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
-    <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+    <span  onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
     <br/>
-    <textarea  style="margin-top:5px; width:400px;" class="form-control" rows="3" id="comment" placeholder="Bitte bewerten Sie uns"></textarea>
+    <textarea   style="margin-top:5px; width:400px;" class="form-control" rows="3" id="comment" placeholder="Bitte bewerten Sie uns"></textarea>
 
-    <button  onclick="result()" type="button" style="margin-top:10px;margin-left:5px;" class="btn btn-md btn-inverse"> <a th:href="@{/}">Bewertung abgeben</a></button>
+    <button  id="BewertungAbgeben" onclick="result()" type="button" style="margin-top:10px;margin-left:5px;" class="btn btn-md btn-inverse"> <a th:href="@{/}">Bewertung abgeben</a></button>
 
 </div>
 </div>
