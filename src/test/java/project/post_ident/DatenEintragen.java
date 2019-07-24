@@ -7,6 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class DatenEintragen {
 
@@ -28,8 +33,17 @@ public class DatenEintragen {
         driver.get("http://localhost:8080");
 
         //Datei auswählen
-     /*   driver.findElement(By.id("DateiAuswaehlen")).click();
-        waitForAction(2.0);*/
+        driver.findElement(By.id("DateiAuswaehlen")).click();
+        waitForAction(2.0);
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        robot.keyPress(KeyEvent.VK_ESCAPE);
+        robot.keyRelease(KeyEvent.VK_ESCAPE);
+
         String homedirectory=System.getProperty("user.home");
         String fullpath=homedirectory+"\\Downloads\\ausweisOlli.png";
         driver.findElement(By.id("DateiAuswaehlen")).sendKeys(fullpath);
