@@ -38,6 +38,8 @@ public class BildHochladenLogik {
                /* System.out.println("For Schleife " + b);*/
                 if (b.length() > 3) {
                     daten.add(b);
+                }else {
+                    System.out.println("Keine Daten länger als 3");
                 }
             }
         }
@@ -46,7 +48,11 @@ public class BildHochladenLogik {
         String geborenNamen = "";
         String name = "";
 
-        if(daten.size() <= 2){
+        if(daten.isEmpty()){
+            System.out.println("Empty");
+        } else if(daten.size() <=1){
+            System.out.println("Nichts gefunden außer: " +daten.get(0));
+        } else if(daten.size() <= 2){
             nachname = daten.get(0);
             nachname = nachname.replaceAll(" \\s", "");
             System.out.println("Nachname nach leerzeichen bei 2: " + nachname);
@@ -68,6 +74,8 @@ public class BildHochladenLogik {
             name = daten.get(2);
             name = name.replaceAll("\\s", "");
             System.out.println("Vorname nach leerzeichen bei 3: " + name);
+        } else {
+            System.out.println("Mehr als 3 Daten gefunden deshalb nicht zuordnenbar");
         }
 
         // Datum zuordnen
