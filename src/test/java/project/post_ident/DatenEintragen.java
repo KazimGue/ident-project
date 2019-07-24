@@ -26,11 +26,20 @@ public class DatenEintragen {
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("http://localhost:8080");
 
-        waitForAction(1.0);
+        //Datei auswählen
+       /* driver.findElement(By.id("DateiAuswaehlen")).click();*/
+        String homedirectory=System.getProperty("user.home");
+        String fullpath=homedirectory+"\\Downloads\\ausweisOlli.png";
+        driver.findElement(By.id("DateiAuswaehlen")).sendKeys(fullpath);
+        waitForAction(5.0);
 
         //"Anlegen" aufrufen
-        driver.findElement(By.linkText("Anlegen")).click();
-        waitForAction(1.0);
+        driver.findElement(By.id("Anlegen")).click();
+        waitForAction(30.0);
+
+
+    /*    driver.findElement(By.linkText("Anlegen")).click();
+        waitForAction(1.0);*/
 
         //"Daten ändern" aufrufen
         driver.findElement(By.linkText("Daten ändern")).click();
