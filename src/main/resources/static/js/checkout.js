@@ -21,5 +21,5 @@ function result()
 {
 //Rating : Count
 //Review : Comment(id)
-    alert("Rating : "+count+"\nReview : "+document.getElementById("comment").value);
+    /*alert("Rating : "+count+"\nReview : "+document.getElementById("comment").value);*/
 }
