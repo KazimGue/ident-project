@@ -12,13 +12,13 @@ import java.io.IOException;
 // die dann von der Tess4j-Klasse ausgelesen werden
 public class BildZuschneiden {
 
-        public static void bildZuschneiden() throws IOException {
+    public static void bildZuschneiden() throws IOException {
 
-            try {
+        try {
             BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\persoUpload.png"));
 
             // Resize originalImage to 1018x647 px um zu schneiden
-            BufferedImage resizedImage = resize(originalImage, 647 , 1018);
+            BufferedImage resizedImage = resize(originalImage, 647, 1018);
 
             File output = new File("src\\main\\resources\\static\\images\\Personalausweis_resized-500x500.png");
             ImageIO.write(resizedImage, "png", output);
@@ -33,14 +33,14 @@ public class BildZuschneiden {
             int firstPartWidth = 298;
             int firstPartHeight = 175;
 
-                int firstX = 440;
-                int firstY = 75;
+            int firstX = 440;
+            int firstY = 75;
 
-                int secondPartWidth = 490;
-                int secondPartHeight = 170;
+            int secondPartWidth = 490;
+            int secondPartHeight = 170;
 
-                int secondX =440;
-                int secondY = 235;
+            int secondX = 440;
+            int secondY = 235;
 
             try {
                 BufferedImage SubImgage = resized.getSubimage(firstX, firstY, firstPartWidth, firstPartHeight);
@@ -52,13 +52,12 @@ public class BildZuschneiden {
                 ImageIO.write(SubImgageTwo, "png", outputfileGeburt);
 
 
-
             } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (IOException e) {
                 e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -73,4 +72,5 @@ public class BildZuschneiden {
 
         return resized;
     }
+}
 
