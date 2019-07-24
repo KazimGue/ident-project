@@ -15,9 +15,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbar-collapse-main">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a class="active" href="#">Daten abgleichen</a> </li>
-            </ul>
+            <ul class="nav navbar-nav navbar-right"></ul>
         </div>
     </div>
 </nav>
@@ -27,38 +25,40 @@
 <div class="container-fluid" >
     <div class="row">
         <div class="col-md-6">
-            <form th:each="person: ${tempPersonenDatenListe}" th:action="@{/originalSpeichern}" method="post">
+            <form  th:action="@{/originalSpeichern}"
+                   th:object="${tempPersonendaten2}"
+                   method="post">
                 <div class="form-group">
                     <label>Vorname:</label>
-                    <input readonly th:value="${person.vorname}" type="text" class="form-control" id="vorname">
+                    <input readonly th:value="*{vorname}" type="text" class="form-control" id="vorname">
                 </div>
                 <div class="form-group">
                     <label for="nachname">Nachname:</label>
-                    <input readonly th:value="${person.nachname}" type="text" class="form-control" id="nachname">
+                    <input readonly th:value="*{nachname}" type="text" class="form-control" id="nachname">
                 </div>
                 <div class="form-group">
                     <label for="persoNr">Personalausweis-Nr:</label>
-                    <input disabled th:value="${person.persoNr}" type="text" class="form-control" id="persoNr" placeholder="Personalausweis-Nr">
+                    <input disabled th:value="*{persoNr}" type="text" class="form-control" id="persoNr" placeholder="Personalausweis-Nr">
                 </div>
                 <div class="form-group">
                     <label for="geburtstag">Geburtstag:</label>
-                    <input readonly th:value="${person.geburtstag}" type="text" class="form-control" id="geburtstag" placeholder="Geburtstag">
+                    <input readonly th:value="*{geburtstag}" type="text" class="form-control" id="geburtstag" placeholder="Geburtstag">
                 </div>
                 <div class="form-group">
                     <label for="strasse">Straße:</label>
-                    <input readonly th:value="${person.strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
+                    <input readonly th:value="*{strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
                 </div>
                 <div class="form-group">
                     <label for="hausnummer">Hausnummer:</label>
-                    <input readonly th:value="${person.hausnummer}" type="text" class="form-control" id="hausnummer" placeholder="Hausnummer">
+                    <input readonly th:value="*{hausnummer}" type="text" class="form-control" id="hausnummer" placeholder="Hausnummer">
                 </div>
                 <div class="form-group">
                     <label for="plz">PLZ:</label>
-                    <input readonly th:value="${person.plz}" type="text" class="form-control" id="plz" placeholder="Postleitzahl">
+                    <input readonly th:value="*{plz}" type="text" class="form-control" id="plz" placeholder="Postleitzahl">
                 </div>
                 <div class="form-group">
                     <label for="stadt">Stadt:</label>
-                    <input readonly th:value="${person.stadt}" type="text" class="form-control" id="stadt" placeholder="Stadt">
+                    <input readonly th:value="*{stadt}" type="text" class="form-control" id="stadt" placeholder="Stadt">
                 </div>
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-inverse"> Speichern</button>

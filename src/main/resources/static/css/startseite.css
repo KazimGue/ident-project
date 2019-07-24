@@ -6,13 +6,25 @@ html, body {
     background-color: #FFD633;
     padding: 1% 0;
     font-size: 1.2em;
+    color: black;
 }
+
+#brand{color: black}
 
 .navbar-default .navbar-nav li a {
     color: black;
 }
+
+.navbar-brand {
+    display: block;
+    text-align:center;
+    float: none;
+    vertical-align: top;
+    color: black;
+}
+
 .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:active{
-    color: white;
+    color: black;
 }
 
 #home{

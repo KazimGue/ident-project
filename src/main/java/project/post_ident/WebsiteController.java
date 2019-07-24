@@ -1,6 +1,9 @@
 package project.post_ident;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+import static project.post_ident.classes.Tess4J.getResult;
 
 
 @Controller
@@ -42,13 +50,14 @@ public class WebsiteController {
     @Autowired
     private BildRepository bildRepository;
 
+    Long tempID;
+
     // Startseite öffnen
     @GetMapping(value = "/")
-    public String startSeiteOeffnen(Model model) throws IOException {
-
+    public String startSeiteOeffnen(Model model) {
         Bild bild = new Bild();
         model.addAttribute("neuesBild", bild);
-
+        tempPersonenDatenRepository.deleteAll();
         return "startseite";
     }
 
@@ -61,8 +70,16 @@ public class WebsiteController {
 
         tempPersonenDatenRepository.save(gescannteDaten);
 
-       List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
-        model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
+        //Finde ID der Person in Datenbank
+        ArrayList<TempPersonendaten> tempPersonendatenList;
+        //Repository.findAll Ergebnis wird in eine ArrayList gecastet
+        tempPersonendatenList= (ArrayList<TempPersonendaten>) tempPersonenDatenRepository.findAll();
+        tempID=tempPersonendatenList.get(0).getPersonID();
+
+
+        Optional<TempPersonendaten> tempPersonendaten=tempPersonenDatenRepository.findById(tempID);
+        TempPersonendaten tempPersonendaten2=tempPersonendaten.get();
+        model.addAttribute("tempPersonendaten2", tempPersonendaten2);
         model.addAttribute("originalPerson", new Personendaten());
         return "vergleich";
     }
@@ -95,7 +112,6 @@ public class WebsiteController {
             e.printStackTrace();
         }
 
-
         Bild bild = new Bild();
         bild.setName(file.getOriginalFilename());
 
@@ -109,10 +125,21 @@ public class WebsiteController {
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(Model model) {
 
-        Long tempID= new Long(1);
-        Optional<TempPersonendaten> tempPersonendaten1 = tempPersonenDatenRepository.findById(tempID);
-        TempPersonendaten tempPersonendaten=tempPersonendaten1.get();
-        model.addAttribute("tempPersonenDaten", tempPersonendaten);
+
+        try {
+            ArrayList<TempPersonendaten> tempPersonendatenList;
+            //Repository.findAll Ergebnis wird in eine ArrayList gecastet
+            tempPersonendatenList= (ArrayList<TempPersonendaten>) tempPersonenDatenRepository.findAll();
+            tempID=tempPersonendatenList.get(0).getPersonID();
+
+            /*TempPersonendaten tempPersonendaten=tempPersonendaten1.get();*/
+            Optional<TempPersonendaten> tempPersonendaten = tempPersonenDatenRepository.findById(tempID);
+            TempPersonendaten tempPersonendaten1=tempPersonendaten.get();
+            model.addAttribute("tempPersonenDaten", tempPersonendaten1);
+        } catch (Exception e) {
+           return "startseite";
+        }
+
 
         return "datenAendern";
     }
@@ -121,6 +148,7 @@ public class WebsiteController {
     @PostMapping(value = "/datenSpeichern")
     public String personenDatenSpeichern(Model model,
             @ModelAttribute("tempPersonenDaten") TempPersonendaten tempPersonendaten){
+
 
         Personendaten neuePerson = new Personendaten();
 
@@ -134,6 +162,7 @@ public class WebsiteController {
         neuePerson.setGeburtstag(tempPersonendaten.getGeburtstag());
 
        personenDatenRepository.save(neuePerson);
+       tempPersonenDatenRepository.deleteAll();
 
         return "checkout";
     }
@@ -142,26 +171,33 @@ public class WebsiteController {
     public String originalDatenSpeichern(Model model,
          @ModelAttribute("originalPerson") Personendaten originalPerson){
 
-        List<TempPersonendaten> tempPersonenDatenListe = tempPersonenDatenRepository.findAll();
-        model.addAttribute("tempPersonenDatenListe", tempPersonenDatenListe);
+        //Finde ID des Datensatzes in DB
+        ArrayList<TempPersonendaten> tempPersonendatenList;
+           //Repository.findAll Ergebnis wird in eine ArrayList gecastet
+            tempPersonendatenList= (ArrayList<TempPersonendaten>) tempPersonenDatenRepository.findAll();
+            tempID=tempPersonendatenList.get(0).getPersonID();
 
-        originalPerson.setVorname(tempPersonenDatenListe.get(0).getVorname());
-        originalPerson.setNachname(tempPersonenDatenListe.get(0).getNachname());
-        originalPerson.setPersoNr(tempPersonenDatenListe.get(0).getPersoNr());
-        originalPerson.setGeburtstag(tempPersonenDatenListe.get(0).getGeburtstag());
-        originalPerson.setStrasse(tempPersonenDatenListe.get(0).getStrasse());
-        originalPerson.setHausnummer(tempPersonenDatenListe.get(0).getHausnummer());
-        originalPerson.setPlz(tempPersonenDatenListe.get(0).getPlz());
-        originalPerson.setStadt(tempPersonenDatenListe.get(0).getStadt());
+        Optional<TempPersonendaten> tempPersonendaten = tempPersonenDatenRepository.findById(tempID);
+        TempPersonendaten tempPersonendaten1=tempPersonendaten.get();
+        model.addAttribute("tempPersonenDaten", tempPersonendaten1);
+
+        originalPerson.setVorname(tempPersonendaten1.getVorname());
+        originalPerson.setNachname(tempPersonendaten1.getNachname());
+        originalPerson.setPersoNr(tempPersonendaten1.getPersoNr());
+        originalPerson.setGeburtstag(tempPersonendaten1.getGeburtstag());
+        originalPerson.setStrasse(tempPersonendaten1.getStrasse());
+        originalPerson.setHausnummer(tempPersonendaten1.getHausnummer());
+        originalPerson.setPlz(tempPersonendaten1.getPlz());
+        originalPerson.setStadt(tempPersonendaten1.getStadt());
 
         personenDatenRepository.save(originalPerson);
+        tempPersonenDatenRepository.deleteAll();
 
         return "checkout";
     }
 
     @GetMapping(value = "/zeigeCheckout")
-    public String zeigeCheckout() throws IOException {
-
+    public String zeigeCheckout(){
         return "checkout";
     }
 
