@@ -1,6 +1,7 @@
 package project.post_ident.classes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import project.post_ident.entities.TempPersonendaten;
 import project.post_ident.repository.BildRepository;
 import project.post_ident.repository.TempPersonenDatenRepository;
@@ -12,6 +13,8 @@ import java.util.regex.Pattern;
 
 import static project.post_ident.classes.Tess4J.getResult;
 
+
+@Service
 public class BildHochladenLogik {
 
 
@@ -28,21 +31,7 @@ public class BildHochladenLogik {
 
         String[] vorname = vornameString.split("\\r?\\n");
 
-        ArrayList<String> daten = new ArrayList<>();
-
-        for(String a : vorname){
-            /*System.out.println("vorher " + a);*/
-            String[] inhalt = a.split("(?=[a-z])");
-
-            for (String b : inhalt) {
-               /* System.out.println("For Schleife " + b);*/
-                if (b.length() > 3) {
-                    daten.add(b);
-                }else {
-                    System.out.println("Keine Daten länger als 3");
-                }
-            }
-        }
+        ArrayList<String> daten = splitInputString(vorname);
 
         String nachname = "";
         String geborenNamen = "";
@@ -102,6 +91,24 @@ public class BildHochladenLogik {
 
     }
 
+    public ArrayList<String> splitInputString(String[] vorname) {
+        ArrayList<String> daten = new ArrayList<>();
+
+        for(String a : vorname){
+            /*System.out.println("vorher " + a);*/
+            String[] inhalt = a.split("(?=[a-z])");
+
+            for (String b : inhalt) {
+                /* System.out.println("For Schleife " + b);*/
+                if (b.length() > 3) {
+                    daten.add(b);
+                }else {
+                    /*System.out.println("Keine Daten länger als 3");*/
+                }
+            }
+        }
+        return daten;
+    }
 
 
 }

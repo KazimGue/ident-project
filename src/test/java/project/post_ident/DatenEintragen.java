@@ -104,7 +104,7 @@ public class DatenEintragen {
         driver.findElement(By.id("comment")).sendKeys("Beste Software ever!");
         waitForAction(2.0);
         driver.findElement(By.id("BewertungAbgeben")).click();
-        waitForAction(5.0);
+        waitForAction(4.0);
 
         driver.close();
     }
