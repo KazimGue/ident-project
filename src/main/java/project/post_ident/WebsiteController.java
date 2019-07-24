@@ -55,6 +55,9 @@ public class WebsiteController {
     // Startseite öffnen
     @GetMapping(value = "/")
     public String startSeiteOeffnen(Model model) {
+        File file = new File("src\\main\\resources\\static\\images\\persoUpload.png");
+        file.delete();
+
         Bild bild = new Bild();
         model.addAttribute("neuesBild", bild);
         tempPersonenDatenRepository.deleteAll();
