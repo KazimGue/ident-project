@@ -73,7 +73,6 @@ public class BildZuschneiden {
         g2d.drawImage(tmp, 0, 0, null);
         g2d.dispose();
 
-
         return resized;
     }
 }

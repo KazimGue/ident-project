@@ -104,7 +104,6 @@ public class WebsiteController {
 
 
     @PostMapping("/filehochladen") // //new annotation since 4.3
-    @ResponseBody
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         //Save the uploaded file to this folder
