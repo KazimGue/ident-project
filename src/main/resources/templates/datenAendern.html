@@ -47,30 +47,30 @@
                             <input  th:field="*{geburtstag}" type="text" class="form-control" id="geburtstag" placeholder="Geburtstag">
                         </div>
                         <div class="form-group">
-                            <label for="strasse">Straße:</label>
-                            <input  th:field="*{strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
+                            <label for="nationalitaet">Nationalität:</label>
+                            <input th:field="*{nationalitaet}" type="text" class="form-control" id="nationalitaet" placeholder="Straße">
                         </div>
                         <div class="form-group">
-                            <label for="hausnummer">Hausnummer:</label>
-                            <input  th:field="*{hausnummer}" type="text" class="form-control" id="hausnummer" placeholder="Hausnummer">
+                            <label for="adresse">Adresse:</label>
+                            <input th:field="*{adresse}" type="text" class="form-control" id="adresse" placeholder="Hausnummer">
                         </div>
                         <div class="form-group">
                             <label for="plz">PLZ:</label>
                             <input  th:field="*{plz}" type="text" class="form-control" id="plz" placeholder="Postleitzahl">
                         </div>
                         <div class="form-group">
-                            <label for="stadt">Stadt:</label>
-                            <input  th:field="*{stadt}" type="text" class="form-control" id="stadt" placeholder="Stadt">
+                            <label for="geburtsort">Geburtsort:</label>
+                            <input th:field="*{geburtsort}" type="text" class="form-control" id="geburtsort" placeholder="Stadt">
                         </div>
                 <div style="text-align: center">
-                    <button id="Speichern" type="submit" class="btn btn-inverse">Speichern</button>
-                    <button class="btn btn-inverse" type="submit"><a th:href="@{/}">Vorgang abbrechen</a></button>
+                    <button id="Speichern" type="submit" class="btn btn-lg btn-inverse">Speichern</button>
+                    <button class="btn btn-lg btn-inverse" type="submit"><a th:href="@{/}">Vorgang abbrechen</a></button>
                 </div>
 
             </form>
         </div>
         <div class="col-md-6">
-            <img src="..\images\persoUpload.png" width="500em">
+            <img th:src="@{'/images/'+${filename}}" width="50em"/>
             <br>
         </div>
     </div>

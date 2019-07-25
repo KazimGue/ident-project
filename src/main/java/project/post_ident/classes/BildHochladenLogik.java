@@ -1,10 +1,6 @@
 package project.post_ident.classes;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import project.post_ident.entities.TempPersonendaten;
-import project.post_ident.repository.BildRepository;
-import project.post_ident.repository.TempPersonenDatenRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -162,10 +158,10 @@ public class BildHochladenLogik {
         gescannteDaten.setVorname(name);
         gescannteDaten.setPersoNr("Personummer");
         gescannteDaten.setGeburtstag(geburtsDatum);
-        gescannteDaten.setStrasse(staatsangehörigkeit);
-        gescannteDaten.setHausnummer("HausNr");
+        gescannteDaten.setNationalitaet(staatsangehörigkeit);
+        gescannteDaten.setAdresse("HausNr");
         gescannteDaten.setPlz(12345);
-        gescannteDaten.setStadt(geburtsOrt);
+        gescannteDaten.setGeburtsort(geburtsOrt);
 
         return gescannteDaten;
 

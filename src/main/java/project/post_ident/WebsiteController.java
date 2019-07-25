@@ -1,28 +1,17 @@
 package project.post_ident;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.post_ident.classes.BildHochladenLogik;
-import project.post_ident.classes.OCRResultObject;
 import project.post_ident.entities.Personendaten;
 import project.post_ident.entities.TempPersonendaten;
 import project.post_ident.repository.PersonenDatenRepository;
 import project.post_ident.repository.TempPersonenDatenRepository;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,17 +19,11 @@ import project.post_ident.entities.Bild;
 import project.post_ident.repository.BildRepository;
 
 
-import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
-import static project.post_ident.classes.Tess4J.getResult;
 
 
 @Controller
@@ -104,7 +87,6 @@ public class WebsiteController {
 
 
     @PostMapping("/filehochladen") // //new annotation since 4.3
-    @ResponseBody
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         //Save the uploaded file to this folder
@@ -147,6 +129,9 @@ public class WebsiteController {
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(Model model) {
 
+       // String source="/images/"+filename;
+        model.addAttribute("filename",filename);
+
 
         try {
             ArrayList<TempPersonendaten> tempPersonendatenList;
@@ -172,15 +157,16 @@ public class WebsiteController {
             @ModelAttribute("tempPersonenDaten") TempPersonendaten tempPersonendaten){
 
 
+
         Personendaten neuePerson = new Personendaten();
 
         neuePerson.setVorname(tempPersonendaten.getVorname());
         neuePerson.setNachname(tempPersonendaten.getNachname());
         neuePerson.setPersoNr(tempPersonendaten.getPersoNr());
-        neuePerson.setStrasse(tempPersonendaten.getStrasse());
-        neuePerson.setHausnummer(tempPersonendaten.getHausnummer());
+        neuePerson.setNationalitaet(tempPersonendaten.getNationalitaet());
+        neuePerson.setAdresse(tempPersonendaten.getAdresse());
         neuePerson.setPlz(tempPersonendaten.getPlz());
-        neuePerson.setStadt(tempPersonendaten.getStadt());
+        neuePerson.setGeburtsort(tempPersonendaten.getGeburtsort());
         neuePerson.setGeburtstag(tempPersonendaten.getGeburtstag());
 
        personenDatenRepository.save(neuePerson);
@@ -207,10 +193,10 @@ public class WebsiteController {
         originalPerson.setNachname(tempPersonendaten1.getNachname());
         originalPerson.setPersoNr(tempPersonendaten1.getPersoNr());
         originalPerson.setGeburtstag(tempPersonendaten1.getGeburtstag());
-        originalPerson.setStrasse(tempPersonendaten1.getStrasse());
-        originalPerson.setHausnummer(tempPersonendaten1.getHausnummer());
+        originalPerson.setNationalitaet(tempPersonendaten1.getNationalitaet());
+        originalPerson.setAdresse(tempPersonendaten1.getAdresse());
         originalPerson.setPlz(tempPersonendaten1.getPlz());
-        originalPerson.setStadt(tempPersonendaten1.getStadt());
+        originalPerson.setGeburtsort(tempPersonendaten1.getGeburtsort());
 
         personenDatenRepository.save(originalPerson);
         tempPersonenDatenRepository.deleteAll();
