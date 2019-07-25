@@ -124,7 +124,7 @@ public class WebsiteController {
 
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        pathname=path+fileSeparator+fileName;
+        pathname= path+fileSeparator+fileName;
 
         BildHochladenLogik dummy= new BildHochladenLogik();
         TempPersonendaten gescannteDaten=dummy.bildHochladenLogik(pathname);

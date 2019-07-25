@@ -30,9 +30,6 @@ public class BildZuschneiden {
             BufferedImage resized = ImageIO.read(new File("src\\main\\resources\\static\\images\\Personalausweis_resized-500x500.png"));
 
 
-//                BufferedImage resized = new BufferedImage();
-
-
             //width and height of each piece
             int firstPartWidth = 298;
             int firstPartHeight = 175;
