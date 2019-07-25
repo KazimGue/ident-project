@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import project.post_ident.classes.BildHochladenLogik;
 import project.post_ident.classes.OCRResultObject;
@@ -20,6 +21,7 @@ import project.post_ident.repository.TempPersonenDatenRepository;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import project.post_ident.entities.Bild;
 import project.post_ident.repository.BildRepository;
 
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -60,17 +63,28 @@ public class WebsiteController {
     Long tempID;
     String pathname;
     String filename;
+    String path;
+
+    private static final String fileSeparator = System.getProperty("file.separator");
+
+    private Path uploadFolder;
+
+    @PostConstruct
+    public void init() {
+        path = System.getProperty("user.home") + fileSeparator + "uploads";
+        uploadFolder = Paths.get(path);
+        try {
+            Files.createDirectories(uploadFolder);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create uploads directory.", e);
+        }
+    }
+
 
     // Startseite öffnen
     @GetMapping(value = "/")
     public String startSeiteOeffnen(Model model) {
-        File file = new File("src\\main\\resources\\static\\images\\persoUpload.png");
-        /*File file = new File("src\\main\\resources\\static\\images\\persoUpload.png");*/
-        file.delete();
 
-        Bild bild = new Bild();
-        model.addAttribute("neuesBild", bild);
-        tempPersonenDatenRepository.deleteAll();
         return "startseite";
     }
 
@@ -104,43 +118,57 @@ public class WebsiteController {
 
 
     @PostMapping("/filehochladen") // //new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-        //Save the uploaded file to this folder
-        String UPLOADED_FOLDER = "src\\main\\resources\\static\\images\\";
+    public String singleFileUpload(Model model,@RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) throws IOException {
 
 
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("/message", "Please select a file to upload");
-            return "redirect:uploadStatus";
-        }
 
-        try {
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-             Files.write(path, bytes);
-            //Umbenennung des Bildes
-            String rndName= UUID.randomUUID().toString();
-            filename=rndName+"Upload.png";
-            pathname=UPLOADED_FOLDER+filename;
-            Files.move(path, path.resolveSibling(filename));
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        pathname=path+fileSeparator+fileName;
 
-            redirectAttributes.addFlashAttribute("successMessage",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+        BildHochladenLogik dummy= new BildHochladenLogik();
+        TempPersonendaten gescannteDaten=dummy.bildHochladenLogik(pathname);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tempPersonenDatenRepository.save(gescannteDaten);
 
-        Bild bild = new Bild();
-        bild.setName(file.getOriginalFilename());
+        //Finde ID der Person in Datenbank
+        ArrayList<TempPersonendaten> tempPersonendatenList;
+        //Repository.findAll Ergebnis wird in eine ArrayList gecastet
+        tempPersonendatenList= (ArrayList<TempPersonendaten>) tempPersonenDatenRepository.findAll();
+        tempID=tempPersonendatenList.get(0).getPersonID();
 
-        bildRepository.save(bild);
 
-        return "redirect:/bildhochladen";
+        Optional<TempPersonendaten> tempPersonendaten=tempPersonenDatenRepository.findById(tempID);
+        TempPersonendaten tempPersonendaten2=tempPersonendaten.get();
+        System.out.println(pathname);
+        model.addAttribute("pathname",pathname);
+        String source="/images/"+filename;
+        model.addAttribute("filename",filename);
+        model.addAttribute("source",source);
+        model.addAttribute("tempPersonendaten2", tempPersonendaten2);
+        model.addAttribute("originalPerson", new Personendaten());
+
+
+
+
+
+        InputStream inputStream = file.getInputStream();
+        Files.copy(inputStream, uploadFolder.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+
+        model.addAttribute("targetFileName", "readImage/" + fileName);
+        return "vergleich";
     }
 
+
+    @GetMapping("/readImage/{imageName}")
+    @ResponseBody
+    public byte[] readImage(@PathVariable(value = "imageName") String imageName) throws IOException {
+
+        File file = new File(uploadFolder + fileSeparator + imageName);
+        byte[] bytes = Files.readAllBytes(file.toPath());
+
+        return bytes;
+    }
 
     //Bringt zu der HTML-Seite, auf der ein neues Objekt hinzugefügt wird
     @GetMapping(value = "/datenAendern")

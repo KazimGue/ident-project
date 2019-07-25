@@ -25,7 +25,7 @@
     <div class="landing-text container">
         <h1>Account erstellen</h1>
         <h3>Einfach Personalausweis hochladen und Daten automatisch auslesen lassen.</h3>
-        <form method="POST" action="/filehochladen" enctype="multipart/form-data">
+        <form method="POST" th:action="@{/filehochladen}" enctype="multipart/form-data">
             <label>Wählen Sie eine Bilddatei (*.png, *.jpg usw.) von Ihrem Rechner aus.</label>
             <input id="DateiAuswaehlen" type="file" name="file" size="4000" accept=".png,.jpg" class="input-group"/>
 
