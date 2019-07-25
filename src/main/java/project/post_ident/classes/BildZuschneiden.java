@@ -16,10 +16,10 @@ import java.io.IOException;
 
 public class BildZuschneiden {
 
-    public static void bildZuschneiden() throws IOException {
+    public static void bildZuschneiden(String pathname) throws IOException {
 
         try {
-            BufferedImage originalImage = ImageIO.read(new File("src\\main\\resources\\static\\images\\persoUpload.png"));
+            BufferedImage originalImage = ImageIO.read(new File(pathname));
 
             // Resize originalImage to 1018x647 px um zu schneiden
             BufferedImage resizedImage = resize(originalImage, 647, 1018);

@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +58,8 @@ public class WebsiteController {
 
 
     Long tempID;
+    String pathname;
+    String filename;
 
     // Startseite öffnen
     @GetMapping(value = "/")
@@ -76,7 +79,7 @@ public class WebsiteController {
     public String bildHochladen(Model model) throws IOException {
 
         BildHochladenLogik dummy= new BildHochladenLogik();
-        TempPersonendaten gescannteDaten=dummy.bildHochladenLogik();
+        TempPersonendaten gescannteDaten=dummy.bildHochladenLogik(pathname);
 
         tempPersonenDatenRepository.save(gescannteDaten);
 
@@ -89,6 +92,11 @@ public class WebsiteController {
 
         Optional<TempPersonendaten> tempPersonendaten=tempPersonenDatenRepository.findById(tempID);
         TempPersonendaten tempPersonendaten2=tempPersonendaten.get();
+        System.out.println(pathname);
+        model.addAttribute("pathname",pathname);
+        String source="/images/"+filename;
+        model.addAttribute("filename",filename);
+        model.addAttribute("source",source);
         model.addAttribute("tempPersonendaten2", tempPersonendaten2);
         model.addAttribute("originalPerson", new Personendaten());
         return "vergleich";
@@ -96,6 +104,7 @@ public class WebsiteController {
 
 
     @PostMapping("/filehochladen") // //new annotation since 4.3
+    @ResponseBody
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         //Save the uploaded file to this folder
@@ -113,7 +122,10 @@ public class WebsiteController {
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
              Files.write(path, bytes);
             //Umbenennung des Bildes
-            Files.move(path, path.resolveSibling("persoUpload.png"));
+            String rndName= UUID.randomUUID().toString();
+            filename=rndName+"Upload.png";
+            pathname=UPLOADED_FOLDER+filename;
+            Files.move(path, path.resolveSibling(filename));
 
             redirectAttributes.addFlashAttribute("successMessage",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");

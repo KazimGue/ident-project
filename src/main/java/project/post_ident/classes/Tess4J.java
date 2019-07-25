@@ -18,10 +18,10 @@ public class Tess4J {
         return tesseract;
     }
 
-    public static OCRResultObject getResult() throws IOException {
+    public static OCRResultObject getResult(String pathname) throws IOException {
         Tesseract tesseract = getTesseract();
 
-        bildZuschneiden();
+        bildZuschneiden(pathname);
         File file = new File("src\\main\\resources\\static\\images\\personalausweisVorneName.png");
         File file2 = new File("src\\main\\resources\\static\\images\\personalausweisVorneGeburtstag.png");
         String result = null;

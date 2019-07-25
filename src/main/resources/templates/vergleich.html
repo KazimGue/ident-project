@@ -45,7 +45,7 @@
                     <input readonly th:value="*{geburtstag}" type="text" class="form-control" id="geburtstag" placeholder="Geburtstag">
                 </div>
                 <div class="form-group">
-                    <label for="strasse">Straße:</label>
+                    <label for="strasse">Nationalität:</label>
                     <input readonly th:value="*{strasse}" type="text" class="form-control" id="strasse" placeholder="Straße">
                 </div>
                 <div class="form-group">
@@ -70,7 +70,9 @@
         <div class="col-md-6">
 
 
-            <img th:src="@{/images/persoUpload.png}" width="500em"/>
+            <!--<img th:src="@{/images/persoUpload.png}" width="500em"/>-->
+            <img th:src="@{'/images/'+${filename}}" width="50em"/>
+
 
             <br>
         </div>

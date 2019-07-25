@@ -20,9 +20,9 @@ public class BildHochladenLogik {
 
 
 
-    public TempPersonendaten bildHochladenLogik() throws IOException {
+    public TempPersonendaten bildHochladenLogik(String pathname) throws IOException {
 
-        OCRResultObject ocrResultObject = getResult();
+        OCRResultObject ocrResultObject = getResult(pathname);
         String resultOCR = ocrResultObject.getResult();
         String resultOCR2 = ocrResultObject.getResult2();
         System.out.println(resultOCR+resultOCR2);
@@ -59,7 +59,7 @@ public class BildHochladenLogik {
         } else if(daten.size() <= 2){
             nachname = daten.get(0);
             nachname = nachname.replaceAll(" \\s", "");
-            System.out.println("Nachname nach leerzeichen bei 2: " + nachname);
+            /*System.out.println("Nachname nach leerzeichen bei 2: " + nachname);*/
 
             name = daten.get(1);
             name = name.replaceAll("\\s","");
@@ -68,7 +68,7 @@ public class BildHochladenLogik {
         } else if(daten.size() <=3){
             nachname = daten.get(0);
             nachname = nachname.replaceAll("\\s","");
-            System.out.println("Nachname nach leerzeichen bei 3: " + nachname);
+            /*System.out.println("Nachname nach leerzeichen bei 3: " + nachname);*/
 
             geborenNamen = daten.get(1);
             geborenNamen = geborenNamen.replaceAll("\\s", "");
@@ -79,7 +79,7 @@ public class BildHochladenLogik {
             name = name.replaceAll("\\s", "");
             System.out.println("Vorname nach leerzeichen bei 3: " + name);
         } else {
-            System.out.println("Mehr als 3 Daten gefunden deshalb nicht zuordnenbar");
+            /*System.out.println("Mehr als 3 Daten gefunden deshalb nicht zuordnenbar");*/
         }
 
 
