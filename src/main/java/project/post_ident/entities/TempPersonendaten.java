@@ -22,13 +22,13 @@ public class TempPersonendaten {
 
     private String geburtstag;
 
-    private String strasse;
+    private String nationalitaet;
 
-    private String hausnummer;
+    private String adresse;
 
     private int plz;
 
-    private String stadt;
+    private String geburtsort;
 
     public Long getPersonID() {
         return personID;
@@ -62,20 +62,20 @@ public class TempPersonendaten {
         this.persoNr = persoNr;
     }
 
-    public String getStrasse() {
-        return strasse;
+    public String getNationalitaet() {
+        return nationalitaet;
     }
 
-    public void setStrasse(String strasse) {
-        this.strasse = strasse;
+    public void setNationalitaet(String nationalitaet) {
+        this.nationalitaet = nationalitaet;
     }
 
-    public String getHausnummer() {
-        return hausnummer;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setHausnummer(String hausnummer) {
-        this.hausnummer = hausnummer;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public int getPlz() {
@@ -86,12 +86,12 @@ public class TempPersonendaten {
         this.plz = plz;
     }
 
-    public String getStadt() {
-        return stadt;
+    public String getGeburtsort() {
+        return geburtsort;
     }
 
-    public void setStadt(String stadt) {
-        this.stadt = stadt;
+    public void setGeburtsort(String geburtsort) {
+        this.geburtsort = geburtsort;
     }
 
     public String getGeburtstag() {

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>PostIdent</title>
+    <title>ID-Projekt</title>
     <link href="../css/startseite.css" rel="stylesheet">
 
 
@@ -23,7 +23,7 @@
 
 <div class="container" id="home">
     <div class="landing-text container">
-        <h1>Account erstellen</h1>
+        <h1>Daten erfassen</h1>
         <h3>Einfach Personalausweis hochladen und Daten automatisch auslesen lassen.</h3>
         <form method="POST" th:action="@{/filehochladen}" enctype="multipart/form-data">
             <label>Wählen Sie eine Bilddatei (*.png, *.jpg usw.) von Ihrem Rechner aus.</label>
@@ -31,7 +31,7 @@
 
             <br>
             <br>
-            <button id="Anlegen" type="submit" class="btn btn-inverse" value="Anlegen">Anlegen</button>
+            <button id="Anlegen" type="submit" class="btn btn-lg btn-inverse" value="Anlegen">Anlegen</button>
         </form>
 
     </div>

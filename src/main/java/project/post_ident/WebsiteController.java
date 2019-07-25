@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import project.post_ident.classes.BildHochladenLogik;
 import project.post_ident.classes.OCRResultObject;
@@ -21,7 +20,6 @@ import project.post_ident.repository.TempPersonenDatenRepository;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,6 @@ import project.post_ident.entities.Bild;
 import project.post_ident.repository.BildRepository;
 
 
-import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -170,6 +167,7 @@ public class WebsiteController {
         return bytes;
     }
 
+
     //Bringt zu der HTML-Seite, auf der ein neues Objekt hinzugefügt wird
     @GetMapping(value = "/datenAendern")
     public String personenDatenAendern(Model model) {
@@ -204,10 +202,10 @@ public class WebsiteController {
         neuePerson.setVorname(tempPersonendaten.getVorname());
         neuePerson.setNachname(tempPersonendaten.getNachname());
         neuePerson.setPersoNr(tempPersonendaten.getPersoNr());
-        neuePerson.setStrasse(tempPersonendaten.getStrasse());
-        neuePerson.setHausnummer(tempPersonendaten.getHausnummer());
+        neuePerson.setNationalitaet(tempPersonendaten.getNationalitaet());
+        neuePerson.setAdresse(tempPersonendaten.getAdresse());
         neuePerson.setPlz(tempPersonendaten.getPlz());
-        neuePerson.setStadt(tempPersonendaten.getStadt());
+        neuePerson.setGeburtsort(tempPersonendaten.getGeburtsort());
         neuePerson.setGeburtstag(tempPersonendaten.getGeburtstag());
 
        personenDatenRepository.save(neuePerson);
@@ -234,10 +232,10 @@ public class WebsiteController {
         originalPerson.setNachname(tempPersonendaten1.getNachname());
         originalPerson.setPersoNr(tempPersonendaten1.getPersoNr());
         originalPerson.setGeburtstag(tempPersonendaten1.getGeburtstag());
-        originalPerson.setStrasse(tempPersonendaten1.getStrasse());
-        originalPerson.setHausnummer(tempPersonendaten1.getHausnummer());
+        originalPerson.setNationalitaet(tempPersonendaten1.getNationalitaet());
+        originalPerson.setAdresse(tempPersonendaten1.getAdresse());
         originalPerson.setPlz(tempPersonendaten1.getPlz());
-        originalPerson.setStadt(tempPersonendaten1.getStadt());
+        originalPerson.setGeburtsort(tempPersonendaten1.getGeburtsort());
 
         personenDatenRepository.save(originalPerson);
         tempPersonenDatenRepository.deleteAll();

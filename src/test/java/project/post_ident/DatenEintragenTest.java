@@ -26,7 +26,8 @@ public class DatenEintragenTest {
 
     @Test
     public void myFirstTest() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\kcoep\\eclipse-workspace\\meinProjekt1\\driver\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\kcoep\\eclipse-workspace\\meinProjekt1\\driver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\rapha\\eclipse-workspace\\Test-DHLBonus\\driver\\chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--start-maximized");
         WebDriver driver = new ChromeDriver(chromeOptions);
@@ -59,24 +60,16 @@ public class DatenEintragenTest {
 
         //"Daten ändern" aufrufen
         driver.findElement(By.linkText("Daten ändern")).click();
-        waitForAction(3.0);
+        waitForAction(2.0);
 
         //Daten in Formular eintragen
         driver.findElement(By.id("vorname")).clear();
         waitForAction(1.0);
-        driver.findElement(By.id("vorname")).sendKeys("Oliver Ludger\r");
-        waitForAction(1.0);
+        driver.findElement(By.id("vorname")).sendKeys("OLIVER LUDGER\r");
+        waitForAction(2.0);
 
         driver.findElement(By.id("persoNr")).clear();
         driver.findElement(By.id("persoNr")).sendKeys("L74905TPZ\r");
-        waitForAction(1.0);
-
-        driver.findElement(By.id("strasse")).clear();
-        driver.findElement(By.id("strasse")).sendKeys("Beispielstr.\r");
-        waitForAction(1.0);
-
-        driver.findElement(By.id("hausnummer")).clear();
-        driver.findElement(By.id("hausnummer")).sendKeys("17\r");
         waitForAction(1.0);
 
 
@@ -84,14 +77,19 @@ public class DatenEintragenTest {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.get("http://localhost:8080/datenAendern");
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        waitForAction(2.0);
+
+        driver.findElement(By.id("nationalitaet")).clear();
+        driver.findElement(By.id("nationalitaet")).sendKeys("DEUTSCH\r");
         waitForAction(1.0);
+
+        driver.findElement(By.id("adresse")).clear();
+        driver.findElement(By.id("adresse")).sendKeys("Beispieladresse 2\r");
+        waitForAction(2.0);
 
         driver.findElement(By.id("plz")).clear();
         driver.findElement(By.id("plz")).sendKeys("40203\r");
-        waitForAction(1.0);
-
-        driver.findElement(By.id("stadt")).clear();
-        driver.findElement(By.id("stadt")).sendKeys("Hamburg\r");
+        waitForAction(2.0);
 
         //"Speichern" klicken
         driver.findElement(By.id("Speichern")).click();
@@ -99,12 +97,12 @@ public class DatenEintragenTest {
 
 
         driver.findElement(By.id("5one")).click();
-        waitForAction(1.0);
+        waitForAction(2.0);
 
         driver.findElement(By.id("comment")).sendKeys("Beste Software ever!");
         waitForAction(2.0);
         driver.findElement(By.id("BewertungAbgeben")).click();
-        waitForAction(4.0);
+        waitForAction(3.0);
 
         driver.close();
     }
