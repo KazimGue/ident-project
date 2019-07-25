@@ -64,6 +64,7 @@ public class WebsiteController {
     String pathname;
     String filename;
     String path;
+    String fileName;
 
     private static final String fileSeparator = System.getProperty("file.separator");
 
@@ -84,6 +85,7 @@ public class WebsiteController {
     // Startseite öffnen
     @GetMapping(value = "/")
     public String startSeiteOeffnen(Model model) {
+        tempPersonenDatenRepository.deleteAll();
 
         return "startseite";
     }
@@ -123,7 +125,7 @@ public class WebsiteController {
 
 
 
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        fileName = StringUtils.cleanPath(file.getOriginalFilename());
         pathname= path+fileSeparator+fileName;
 
         BildHochladenLogik dummy= new BildHochladenLogik();
@@ -186,6 +188,8 @@ public class WebsiteController {
             Optional<TempPersonendaten> tempPersonendaten = tempPersonenDatenRepository.findById(tempID);
             TempPersonendaten tempPersonendaten1=tempPersonendaten.get();
             model.addAttribute("tempPersonenDaten", tempPersonendaten1);
+            model.addAttribute("targetFileName", "readImage/" + fileName);
+
         } catch (Exception e) {
            return "startseite";
         }
