@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import project.post_ident.classes.BildHochladenLogik;
 import project.post_ident.classes.OCRResultObject;
@@ -20,6 +21,7 @@ import project.post_ident.repository.TempPersonenDatenRepository;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import project.post_ident.entities.Bild;
 import project.post_ident.repository.BildRepository;
 
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.nio.file.Files;
